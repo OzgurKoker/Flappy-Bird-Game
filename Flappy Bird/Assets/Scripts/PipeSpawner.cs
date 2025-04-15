@@ -18,7 +18,7 @@ public class PipeSpawner : MonoBehaviour
     {
         while (true)
         {
-            Instantiate(pipesPrefab, new UnityEngine.Vector3(3f, UnityEngine.Random.Range(-2, 6), 0), quaternion.identity);
+            Instantiate(pipesPrefab, new UnityEngine.Vector3(12f, UnityEngine.Random.Range(-2, 6), 0), quaternion.identity);
 
             yield return new WaitForSeconds(pipeSpawnTime);
         }
