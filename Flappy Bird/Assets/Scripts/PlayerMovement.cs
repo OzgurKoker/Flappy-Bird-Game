@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
@@ -7,6 +8,9 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private AudioSource dieSFX;
     [SerializeField] private AudioSource pointSFX;
     [SerializeField] private AudioSource flySFX;
+
+    private float originalGravity = 8f;
+    private bool IsFreezed;
     private Rigidbody2D rb2d;
 
     void Start()
@@ -15,6 +19,7 @@ public class PlayerMovement : MonoBehaviour
         rb2d = GetComponent<Rigidbody2D>();
         deathScreen.SetActive(false);
 
+        StartCoroutine(FreezePlayer());
     }
 
 
@@ -22,6 +27,13 @@ public class PlayerMovement : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
+            if (IsFreezed)
+            {
+                rb2d.gravityScale = originalGravity;
+                IsFreezed = false;
+            }
+
+
             rb2d.linearVelocity = Vector2.up * jumpSpeed;
             flySFX.Play();
             FindFirstObjectByType<GameManager>().StartGameWithSpace(deathScreen.activeSelf);
@@ -54,6 +66,19 @@ public class PlayerMovement : MonoBehaviour
             deathScreen.SetActive(true);
             dieSFX.Play();
         }
+    }
+
+    IEnumerator FreezePlayer()
+    {
+        rb2d.gravityScale = 0;
+        IsFreezed = true;
+
+        yield return new WaitForSeconds(2f);
+
+        rb2d.gravityScale = originalGravity;
+        IsFreezed = false;
+
+
     }
 
 }

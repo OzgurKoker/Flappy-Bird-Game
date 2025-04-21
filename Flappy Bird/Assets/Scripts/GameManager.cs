@@ -1,3 +1,4 @@
+using System.Collections;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -37,13 +38,15 @@ public class GameManager : MonoBehaviour
     {
         SceneManager.LoadScene("MainMenu");
     }
-    public void StartGameWithSpace(bool p)
+    public void StartGameWithSpace(bool deathScreen)
     {
-        if (p)
+        if (deathScreen)
         {
             SceneManager.LoadScene("Game");
         }
 
     }
+
+
 
 }
