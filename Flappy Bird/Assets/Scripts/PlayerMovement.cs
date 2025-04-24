@@ -9,14 +9,15 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private AudioSource pointSFX;
     [SerializeField] private AudioSource flySFX;
 
-    private float originalGravity = 8f;
     private bool IsFreezed;
     private Rigidbody2D rb2d;
+    private float originalGravity;
 
     void Start()
     {
         Time.timeScale = 1f;
         rb2d = GetComponent<Rigidbody2D>();
+        originalGravity = rb2d.gravityScale;
         deathScreen.SetActive(false);
 
         StartCoroutine(FreezePlayer());
